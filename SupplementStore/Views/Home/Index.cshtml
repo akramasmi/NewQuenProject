@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "الرئيسية";
+}
+
+<!-- واجهة رئيسية -->
+<section class="hero text-center">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold">متجر <span class="text-accent">عضلات</span> للمكملات الغذائية 🏋️</h1>
+        <p class="lead mb-4">كل ما يحتاجه الرياضي من بروتين، كرياتين، وفيتامينات — بجودة مضمونة وأسعار منافسة.</p>
+        <a asp-controller="Shop" asp-action="Index" class="btn btn-primary btn-lg px-4">تسوّق الآن</a>
+        <a asp-controller="Shop" asp-action="Index" asp-route-category="بروتين" class="btn btn-outline-light btn-lg ms-2">أفضل الماركات</a>
+    </div>
+</section>
+
+<!-- الأقسام -->
+<section class="container py-5">
+    <h2 class="text-center fw-bold mb-4">تسوّق حسب الهدف</h2>
+    <div class="row g-3 justify-content-center">
+        @{
+            var icons = new Dictionary<string, string>
+            {
+                ["بروتين"] = "🥛",
+                ["أداء وطاقة"] = "⚡",
+                ["تعافي"] = "💪",
+                ["زيادة الوزن"] = "📈",
+                ["تنشيف"] = "❄️",
+                ["صحة عامة"] = "🍊"
+            };
+        }
+        @foreach (var cat in (List<string>)ViewBag.Categories)
+        {
+            <div class="col-6 col-md-4 col-lg-2">
+                <a asp-controller="Shop" asp-action="Index" asp-route-category="@cat"
+                   class="category-card text-center d-block">
+                    <div class="fs-1">@icons.GetValueOrDefault(cat, "💊")</div>
+                    <div class="mt-2 fw-semibold">@cat</div>
+                </a>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- الأكثر مبيعًا -->
+<section class="container pb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">الأكثر مبيعًا 🔥</h2>
+        <a asp-controller="Shop" asp-action="Index" class="btn btn-outline-primary">عرض الكل</a>
+    </div>
+    <div class="row g-4">
+        @foreach (var product in (List<SupplementStore.Models.Product>)ViewBag.BestSellers)
+        {
+            <div class="col-6 col-lg-3">
+                <partial name="_ProductCard" model="product" />
+            </div>
+        }
+    </div>
+</section>
+
+<!-- لماذا نحن -->
+<section class="features-strip py-5">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-md-3">
+                <div class="fs-2">🚚</div>
+                <h5>شحن سريع</h5>
+                <p class="small mb-0">توصيل خلال 24-48 ساعة لجميع المدن</p>
+            </div>
+            <div class="col-md-3">
+                <div class="fs-2">✅</div>
+                <h5>منتجات أصلية 100%</h5>
+                <p class="small mb-0">مستوردة مباشرة من الشركات المصنّعة</p>
+            </div>
+            <div class="col-md-3">
+                <div class="fs-2">💳</div>
+                <h5>دفع آمن</h5>
+                <p class="small mb-0">بطاقات، محافظ إلكترونية، ودفع عند الاستلام</p>
+            </div>
+            <div class="col-md-3">
+                <div class="fs-2">🎧</div>
+                <h5>دعم تغذية رياضية</h5>
+                <p class="small mb-0">استشارات مجانية من مختصين</p>
+            </div>
+        </div>
+    </div>
+</section>
