@@ -1,0 +1,82 @@
+@model SupplementStore.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+    var related = (List<SupplementStore.Models.Product>)ViewBag.Related;
+}
+
+<div class="container py-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">الرئيسية</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">المتجر</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index" asp-route-category="@Model.Category">@Model.Category</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow-sm product-detail mb-5">
+        <div class="row g-0">
+            <div class="col-md-5">
+                <div class="detail-image d-flex align-items-center justify-content-center h-100">
+                    <span>@Model.ImageEmoji</span>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="card-body p-4">
+                    <small class="text-muted">@Model.Category</small>
+                    <h1 class="h3 fw-bold">@Model.Name</h1>
+
+                    <div class="rating mb-3">
+                        ⭐ @Model.Rating <span class="text-muted small">(@Model.ReviewCount تقييم)</span>
+                    </div>
+
+                    <p class="description">@Model.Description</p>
+
+                    <div class="fs-3 fw-bold price-main mt-3">
+                        @Model.Price.ToString("N0") ر.س
+                        @if (Model.OldPrice.HasValue)
+                        {
+                            <span class="fs-6 text-muted old-price text-decoration-line-through ms-2">@Model.OldPrice.Value.ToString("N0") ر.س</span>
+                            <span class="badge bg-danger ms-2">وفّر @Model.DiscountPercent%</span>
+                        }
+                    </div>
+
+                    <div class="mt-2">
+                        @if (Model.InStock)
+                        {
+                            <span class="text-success fw-semibold">✔ متوفر في المخزون</span>
+                        }
+                        else
+                        {
+                            <span class="text-danger fw-semibold">✖ غير متوفر حاليًا</span>
+                        }
+                    </div>
+
+                    <div class="mt-4 d-flex gap-2 flex-wrap">
+                        <button class="btn btn-primary btn-lg px-4" onclick="alert('تمت الإضافة إلى السلة 🛒 (عرض تجريبي)')">🛒 أضف إلى السلة</button>
+                        <button class="btn btn-outline-secondary btn-lg" onclick="alert('الشراء المباشر — عرض تجريبي ❤️')">شراء الآن</button>
+                    </div>
+
+                    <ul class="small text-muted mt-4 mb-0 list-unstyled">
+                        <li>🚚 شحن سريع خلال 24-48 ساعة</li>
+                        <li>✅ منتج أصلي 100% معتمد من هيئة الغذاء والدواء</li>
+                        <li>↩ إمكانية إرجاع خلال 14 يومًا</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (related.Any())
+    {
+        <h3 class="fw-bold mb-4">منتجات مشابهة</h3>
+        <div class="row g-4">
+            @foreach (var item in related)
+            {
+                <div class="col-6 col-lg-3">
+                    <partial name="_ProductCard" model="item" />
+                </div>
+            }
+        </div>
+    }
+</div>

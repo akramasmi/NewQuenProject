@@ -1,0 +1,31 @@
+@model SupplementStore.Models.Product
+
+<div class="card product-card h-100 shadow-sm">
+    <div class="product-image">
+        <span>@Model.ImageEmoji</span>
+        @if (Model.DiscountPercent > 0)
+        {
+            <span class="badge discount-badge">خصم @Model.DiscountPercent%</span>
+        }
+    </div>
+    <div class="card-body d-flex flex-column">
+        <small class="text-muted">@Model.Category</small>
+        <h5 class="card-title fs-6 fw-bold mt-1">
+            <a class="product-link" asp-controller="Shop" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a>
+        </h5>
+        <div class="rating small mb-2">
+            ⭐ @Model.Rating <span class="text-muted">(@Model.ReviewCount تقييم)</span>
+        </div>
+        <div class="mt-auto">
+            <div class="mb-2">
+                <span class="fw-bold price">@Model.Price.ToString("N0") ر.س</span>
+                @if (Model.OldPrice.HasValue)
+                {
+                    <span class="text-muted old-price text-decoration-line-through ms-2">@Model.OldPrice.Value.ToString("N0") ر.س</span>
+                }
+            </div>
+            <a asp-controller="Shop" asp-action="Details" asp-route-id="@Model.Id"
+               class="btn btn-primary w-100 btn-sm">عرض المنتج</a>
+        </div>
+    </div>
+</div>
