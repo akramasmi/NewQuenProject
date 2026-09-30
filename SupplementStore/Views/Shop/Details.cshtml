@@ -18,7 +18,14 @@
         <div class="row g-0">
             <div class="col-md-5">
                 <div class="detail-image d-flex align-items-center justify-content-center h-100">
-                    <span>@Model.ImageEmoji</span>
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl" alt="@Model.Name" class="detail-img" />
+                    }
+                    else
+                    {
+                        <span>@Model.ImageEmoji</span>
+                    }
                 </div>
             </div>
             <div class="col-md-7">

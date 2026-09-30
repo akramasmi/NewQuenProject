@@ -1,0 +1,98 @@
+@model SupplementStore.Models.ProductInputModel
+
+<form asp-action="@ViewData["Mode"]" method="post" enctype="multipart/form-data" novalidate>
+    @Html.AntiForgeryToken()
+    @if (ViewData["Mode"] as string == "Edit")
+    {
+        <input type="hidden" asp-for="Id" />
+    }
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <label asp-for="Name" class="form-label fw-semibold"></label>
+            <input asp-for="Name" class="form-control" placeholder="مثال: ويت بروتين 2 كجم" />
+            <span asp-validation-for="Name" class="text-danger small"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="Category" class="form-label fw-semibold"></label>
+            <div class="input-group">
+                <select asp-for="Category" class="form-select"
+                        asp-items="@(new SelectList((List<string>)ViewBag.Categories))">
+                </select>
+                <input type="text" asp-for="NewCategory" class="form-control form-control-sm" style="max-width:150px" placeholder="أو فئة جديدة">
+            </div>
+            <span asp-validation-for="Category" class="text-danger small"></span>
+        </div>
+
+        <div class="col-12">
+            <label asp-for="Description" class="form-label fw-semibold"></label>
+            <textarea asp-for="Description" class="form-control" rows="3" placeholder="فوائد المنتج، طريقة الاستخدام، النكهة…"></textarea>
+            <span asp-validation-for="Description" class="text-danger small"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="Price" class="form-label fw-semibold"></label>
+            <input asp-for="Price" class="form-control" type="number" step="0.01" min="0" />
+            <span asp-validation-for="Price" class="text-danger small"></span>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="OldPrice" class="form-label fw-semibold"></label>
+            <input asp-for="OldPrice" class="form-control" type="number" step="0.01" min="0" placeholder="اتركه فارغًا إن لا خصم" />
+            <span asp-validation-for="OldPrice" class="text-danger small"></span>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check mt-md-5 pt-2">
+                <input asp-for="InStock" class="form-check-input" />
+                <label asp-for="InStock" class="form-check-label fw-semibold"></label>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="Rating" class="form-label fw-semibold"></label>
+            <input asp-for="Rating" class="form-control" type="number" step="0.1" min="0" max="5" />
+            <span asp-validation-for="Rating" class="text-danger small"></span>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="ReviewCount" class="form-label fw-semibold"></label>
+            <input asp-for="ReviewCount" class="form-control" type="number" min="0" />
+            <span asp-validation-for="ReviewCount" class="text-danger small"></span>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="ImageEmoji" class="form-label fw-semibold"></label>
+            <input asp-for="ImageEmoji" class="form-control" placeholder="💊" />
+        </div>
+
+        <div class="col-12">
+            <label asp-for="ImageUrl" class="form-label fw-semibold"></label>
+            <input asp-for="ImageUrl" class="form-control" placeholder="https://example.com/image.jpg" />
+        </div>
+
+        <div class="col-12">
+            <label asp-for="ImageFile" class="form-label fw-semibold"></label>
+            <input asp-for="ImageFile" type="file" accept=".jpg,.jpeg,.png,.gif,.webp" class="form-control" />
+            <div class="form-text">يُفضَّل رفع صورة من الجهاز — سيتم حفظها في مجلد uploads ودعم معاينة فورية.</div>
+            <span asp-validation-for="ImageFile" class="text-danger small"></span>
+            <img id="preview" class="mt-2 d-none admin-thumb-lg" alt="معاينة الصورة" />
+        </div>
+    </div>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger mt-3"></div>
+
+    <div class="mt-4 d-flex gap-2">
+        <button type="submit" class="btn btn-primary btn-lg px-5">💾 @(ViewData["Mode"] as string == "Edit" ? "حفظ التعديلات" : "إضافة المنتج")</button>
+        <a asp-action="Index" class="btn btn-outline-secondary btn-lg">إلغاء</a>
+    </div>
+</form>
+
+<script>
+    // معاينة فورية للصورة المرفوعة
+    const fileInput = document.querySelector('input[type="file"]');
+    const preview = document.getElementById('preview');
+    fileInput?.addEventListener('change', e => {
+        const file = e.target.files[0];
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.classList.remove('d-none');
+        }
+    });
+</script>
