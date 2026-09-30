@@ -11,6 +11,7 @@ namespace SupplementStore.Models
         public double Rating { get; set; }
         public int ReviewCount { get; set; }
         public string ImageEmoji { get; set; } = "💊";
+        public string? ImageUrl { get; set; } // رابط صورة المنتج (اختياري — يُعرض الإيموجي كبديل)
         public bool InStock { get; set; } = true;
 
         public decimal DiscountPercent =>

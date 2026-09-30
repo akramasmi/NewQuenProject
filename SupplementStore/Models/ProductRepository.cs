@@ -38,5 +38,60 @@ namespace SupplementStore.Models
         }
 
         public static Product? GetById(int id) => Products.FirstOrDefault(p => p.Id == id);
+
+        private static readonly List<string> _categories = new()
+        {
+            "بروتين", "أداء وطاقة", "تعافي", "تنشيف", "زيادة الوزن", "صحة عامة"
+        };
+
+        public static List<string> AllCategories
+        {
+            get
+            {
+                var extra = Products.Select(p => p.Category).Where(c => !_categories.Contains(c));
+                return _categories.Concat(extra).Distinct().ToList();
+            }
+        }
+
+        public static void AddCategory(string category)
+        {
+            if (!string.IsNullOrWhiteSpace(category) && !_categories.Contains(category))
+                _categories.Add(category);
+        }
+
+        public static Product Add(Product product)
+        {
+            product.Id = Products.Count == 0 ? 1 : Products.Max(p => p.Id) + 1;
+            Products.Add(product);
+            AddCategory(product.Category);
+            return product;
+        }
+
+        public static bool Update(Product updated)
+        {
+            var existing = GetById(updated.Id);
+            if (existing == null) return false;
+
+            existing.Name = updated.Name;
+            existing.Category = updated.Category;
+            existing.Description = updated.Description;
+            existing.Price = updated.Price;
+            existing.OldPrice = updated.OldPrice;
+            existing.Rating = updated.Rating;
+            existing.ReviewCount = updated.ReviewCount;
+            existing.ImageEmoji = updated.ImageEmoji;
+            existing.ImageUrl = updated.ImageUrl;
+            existing.InStock = updated.InStock;
+            AddCategory(updated.Category);
+            return true;
+        }
+
+        public static bool Delete(int id)
+        {
+            var existing = GetById(id);
+            if (existing == null) return false;
+            Products.Remove(existing);
+            return true;
+        }
     }
 }
