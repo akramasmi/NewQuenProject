@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets/css/site.css"
     },
     {
+      "Id": "/workspace/SupplementStore/wwwroot/css/theme.css",
+      "PackagePath": "staticwebassets/css/theme.css"
+    },
+    {
       "Id": "/workspace/SupplementStore/wwwroot/favicon.ico",
       "PackagePath": "staticwebassets/favicon.ico"
     },
