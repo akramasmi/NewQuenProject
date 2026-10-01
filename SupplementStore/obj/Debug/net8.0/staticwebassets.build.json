@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "w5sAtj8ms1zToWcTzSok1lJijVqdo3om0Loj/ziawZ0=",
+  "Hash": "o8vtL0PzPcitpeXAi+Ihw5B1mQ+NJjzfO46mWrdZmQA=",
   "Source": "SupplementStore",
   "BasePath": "_content/SupplementStore",
   "Mode": "Default",
@@ -72,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/css/site.css"
+    },
+    {
+      "Identity": "/workspace/SupplementStore/wwwroot/css/theme.css",
+      "SourceId": "SupplementStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "/workspace/SupplementStore/wwwroot/",
+      "BasePath": "_content/SupplementStore",
+      "RelativePath": "css/theme.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/theme.css"
     },
     {
       "Identity": "/workspace/SupplementStore/wwwroot/favicon.ico",

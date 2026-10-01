@@ -2,7 +2,14 @@
 
 <div class="card product-card h-100 shadow-sm">
     <div class="product-image">
-        <span>@Model.ImageEmoji</span>
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" alt="@Model.Name" loading="lazy" />
+        }
+        else
+        {
+            <span>@Model.ImageEmoji</span>
+        }
         @if (Model.DiscountPercent > 0)
         {
             <span class="badge discount-badge">خصم @Model.DiscountPercent%</span>

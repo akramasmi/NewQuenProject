@@ -1,0 +1,275 @@
+/* ============================================
+   سمة المتجر: أسود × فضي (Dark Steel Theme)
+   ============================================ */
+:root {
+  --c-black: #0a0a0d;
+  --c-surface: #121216;
+  --c-surface-2: #17171c;
+  --c-panel: #1b1b21;
+  --c-border: #2b2b33;
+  --c-border-strong: #3d3d47;
+
+  --c-silver: #c6cbd4;
+  --c-silver-bright: #e8ebf0;
+  --c-silver-dim: #9aa0ab;
+  --c-muted: #7d828d;
+
+  --c-accent: linear-gradient(135deg, #f2f4f7 0%, #c6cbd4 45%, #8b919d 100%);
+  --c-danger: #ff5d6c;
+  --c-success: #4ade80;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin-bottom: 60px;
+  font-family: "Segoe UI", Tahoma, "Noto Naskh Arabic", sans-serif;
+  background-color: var(--c-black);
+  color: var(--c-silver);
+}
+
+::selection { background: #c6cbd4; color: #0a0a0d; }
+
+.text-accent {
+  background: var(--c-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  font-weight: 800;
+}
+
+/* ===== Bootstrap overrides ===== */
+.bg-dark { background-color: #0d0d11 !important; }
+
+.btn-primary {
+  background: var(--c-accent);
+  border: none;
+  color: #0a0a0d;
+  font-weight: 700;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background: linear-gradient(135deg, #ffffff 0%, #d4d9e2 50%, #9aa0ab 100%);
+  color: #0a0a0d;
+  box-shadow: 0 4px 18px rgba(198, 203, 212, .25);
+}
+
+.btn-outline-primary {
+  color: var(--c-silver-bright);
+  border-color: var(--c-border-strong);
+}
+.btn-outline-primary:hover {
+  background: var(--c-silver-bright);
+  color: #0a0a0d;
+  border-color: var(--c-silver-bright);
+}
+
+.btn-outline-light { border-color: rgba(198,203,212,.4); color: var(--c-silver-bright); }
+.btn-outline-light:hover { background: var(--c-silver-bright); color: #0a0a0d; }
+
+.btn-outline-secondary { color: var(--c-silver-dim); border-color: var(--c-border-strong); }
+.btn-outline-secondary:hover { background: var(--c-silver); color: #0a0a0d; }
+
+.btn-warning {
+  background: linear-gradient(135deg, #dfe3ea, #aab0bb);
+  border: none;
+  color: #0a0a0d;
+  font-weight: 700;
+}
+.btn-warning:hover { background: linear-gradient(135deg, #fff, #c6cbd4); color: #0a0a0d; }
+
+.badge.bg-primary { background: var(--c-accent) !important; color: #0a0a0d; }
+.badge.bg-secondary { background: #3a3a44 !important; color: var(--c-silver-bright); }
+.badge.bg-success { background: rgba(74,222,128,.15) !important; color: var(--c-success); border: 1px solid rgba(74,222,128,.35); }
+.badge.bg-danger { background: var(--c-danger) !important; color: #fff; }
+
+.card {
+  background-color: var(--c-panel);
+  color: var(--c-silver);
+  border: 1px solid var(--c-border);
+}
+
+.form-control, .form-select, textarea.form-control {
+  background-color: var(--c-surface-2);
+  border: 1px solid var(--c-border);
+  color: var(--c-silver-bright);
+}
+.form-control:focus, .form-select:focus {
+  background-color: var(--c-surface-2);
+  border-color: var(--c-silver-dim);
+  color: var(--c-silver-bright);
+  box-shadow: 0 0 0 .2rem rgba(198, 203, 212, .15);
+}
+.form-control::placeholder { color: var(--c-muted); }
+.form-check-input { background-color: var(--c-surface-2); border-color: var(--c-border-strong); }
+.form-check-input:checked { background-color: var(--c-silver); border-color: var(--c-silver); }
+
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--c-silver);
+  --bs-table-border-color: var(--c-border);
+  --bs-table-hover-bg: rgba(198, 203, 212, .06);
+  --bs-table-hover-color: var(--c-silver-bright);
+}
+.table > thead, .table-light {
+  background-color: var(--c-surface-2) !important;
+  --bs-table-bg: var(--c-surface-2);
+  --bs-table-color: var(--c-silver-bright);
+}
+.table-light > th, .table-light > td { color: var(--c-silver-bright); background-color: var(--c-surface-2); }
+
+h1, h2, h3, h4, h5, .display-4 { color: var(--c-silver-bright); }
+
+.text-muted { color: var(--c-muted) !important; }
+.text-success { color: var(--c-success) !important; }
+.text-danger { color: var(--c-danger) !important; }
+.text-warning { color: var(--c-silver-bright) !important; }
+.text-primary { color: var(--c-silver-bright) !important; }
+.text-primary-emphasis { color: var(--c-silver-bright) !important; }
+.text-secondary-emphasis { color: var(--c-silver) !important; }
+.bg-primary-subtle { background-color: rgba(198,203,212,.12) !important; }
+.bg-secondary-subtle { background-color: rgba(198,203,212,.08) !important; }
+
+.alert-warning {
+  background: rgba(198, 203, 212, .08);
+  border: 1px solid var(--c-border-strong);
+  color: var(--c-silver-bright);
+}
+.alert-warning .alert-link { color: #fff; }
+.alert-success {
+  background: rgba(74,222,128,.1);
+  border: 1px solid rgba(74,222,128,.3);
+  color: var(--c-success);
+}
+
+.nav-pills .nav-link { color: var(--c-silver-dim); }
+.nav-pills .nav-link.active { background: var(--c-accent); color: #0a0a0d; font-weight: 700; }
+
+.modal-content { background: var(--c-panel); color: var(--c-silver); border: 1px solid var(--c-border-strong); }
+.modal-header, .modal-footer { border-color: var(--c-border); }
+.btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
+
+hr { border-color: var(--c-border); opacity: .6; }
+
+/* ===== Navbar ===== */
+header .navbar {
+  background: linear-gradient(180deg, #101014 0%, #0a0a0d 100%) !important;
+  border-bottom: 1px solid var(--c-border) !important;
+  box-shadow: 0 2px 18px rgba(0, 0, 0, .55);
+}
+.navbar-brand { letter-spacing: .5px; }
+.navbar .nav-link { color: var(--c-silver-dim); transition: color .15s ease; }
+.navbar .nav-link:hover { color: var(--c-silver-bright); }
+.navbar .text-warning { color: var(--c-silver-bright) !important; }
+
+/* ===== Hero ===== */
+.hero {
+  background:
+    radial-gradient(1000px 400px at 85% -10%, rgba(198, 203, 212, .14), transparent 60%),
+    linear-gradient(135deg, #000000 0%, #0d0d12 55%, #17171d 100%);
+  color: var(--c-silver-bright);
+  border-bottom: 1px solid var(--c-border);
+}
+.hero .lead { color: var(--c-silver-dim); }
+
+/* ===== الأقسام ===== */
+.category-card {
+  background: var(--c-panel);
+  border: 1px solid var(--c-border);
+  border-radius: 14px;
+  padding: 1.2rem 0.5rem;
+  text-decoration: none;
+  color: var(--c-silver);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .5);
+  color: var(--c-silver-bright);
+  border-color: var(--c-silver-dim);
+}
+
+.features-strip {
+  background: var(--c-surface);
+  border-top: 1px solid var(--c-border);
+  color: var(--c-silver-dim);
+}
+
+/* ===== بطاقات المنتجات ===== */
+.product-card {
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .55) !important;
+  border-color: var(--c-silver-dim);
+}
+
+.product-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+  font-size: 3.5rem;
+  background: linear-gradient(135deg, #1d1d23, #101014);
+  color: var(--c-silver);
+}
+
+.discount-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--c-danger);
+  font-size: .75rem;
+}
+
+.product-link { color: var(--c-silver-bright); text-decoration: none; }
+.product-link:hover { color: #fff; }
+
+.price { color: var(--c-silver-bright); font-size: 1.05rem; font-weight: 800; }
+.old-price { font-size: .85rem; color: var(--c-muted) !important; }
+
+/* ===== صفحة المنتج ===== */
+.detail-image {
+  font-size: 8rem;
+  background: linear-gradient(135deg, #1d1d23, #0d0d11);
+  min-height: 320px;
+  border-start-end-radius: 0;
+  color: var(--c-silver);
+}
+.price-main { color: var(--c-silver-bright); }
+.description { color: var(--c-silver-dim); line-height: 1.9; }
+
+/* ===== التصفية ===== */
+.filter-card { border-radius: 14px; }
+.category-list a {
+  display: block;
+  padding: .45rem .75rem;
+  border-radius: 8px;
+  color: var(--c-silver);
+  text-decoration: none;
+}
+.category-list a:hover { background: rgba(198, 203, 212, .08); color: var(--c-silver-bright); }
+.category-list a.active { background: var(--c-accent); color: #0a0a0d; font-weight: 700; }
+
+footer { font-size: .9rem; background: #08080b !important; border-top: 1px solid var(--c-border) !important; }
+
+/* ===== لوحة الإدارة والصور ===== */
+.admin-stat {
+  border-right: 4px solid var(--c-silver-dim);
+  background: var(--c-panel);
+}
+.admin-thumb { width: 56px; height: 56px; object-fit: cover; border-radius: 10px; border: 1px solid var(--c-border-strong); }
+.admin-thumb-emoji {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px; font-size: 1.8rem;
+  background: var(--c-surface-2); border: 1px solid var(--c-border); border-radius: 10px;
+}
+.admin-thumb-lg { max-width: 220px; max-height: 220px; object-fit: cover; border-radius: 12px; border: 1px solid var(--c-border-strong); }
+
+.product-image img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; border-radius: inherit; }
+.detail-img { width: 100%; height: 100%; max-height: 420px; object-fit: contain; padding: 1rem; }
+
+.shadow-sm { box-shadow: 0 4px 14px rgba(0, 0, 0, .45) !important; }

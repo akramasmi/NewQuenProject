@@ -1,0 +1,143 @@
+@model List<SupplementStore.Models.Product>
+@{
+    ViewData["Title"] = "لوحة الإدارة";
+    var categories = (List<string>)ViewBag.Categories;
+}
+
+<div class="container py-4">
+    @if (TempData["Msg"] is string msg)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @msg
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+        <h1 class="h3 fw-bold mb-0">🛠 لوحة إدارة المتجر</h1>
+        <a asp-action="Create" class="btn btn-primary btn-lg px-4">➕ إضافة منتج جديد</a>
+    </div>
+
+    <!-- بطاقات إحصائية -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="card text-center shadow-sm border-0 admin-stat">
+                <div class="card-body">
+                    <div class="fs-2 fw-bold text-primary">@Model.Count</div>
+                    <div class="text-muted small">عدد المنتجات</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card text-center shadow-sm border-0 admin-stat">
+                <div class="card-body">
+                    <div class="fs-2 fw-bold text-success">@categories.Count</div>
+                    <div class="text-muted small">الفئات</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card text-center shadow-sm border-0 admin-stat">
+                <div class="card-body">
+                    <div class="fs-2 fw-bold text-warning">@Model.Count(p => p.OldPrice.HasValue)</div>
+                    <div class="text-muted small">منتجات مخفّضة</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card text-center shadow-sm border-0 admin-stat">
+                <div class="card-body">
+                    <div class="fs-2 fw-bold text-danger">@Model.Count(p => !p.InStock)</div>
+                    <div class="text-muted small">غير متوفرة</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الفئات + إضافة فئة -->
+    <div class="card shadow-sm mb-4 border-0">
+        <div class="card-body">
+            <h2 class="h6 fw-bold mb-3">📂 الفئات الحالية</h2>
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+                @foreach (var c in categories)
+                {
+                    <span class="badge bg-primary-subtle text-primary-emphasis fs-6 py-2 px-3">@c</span>
+                }
+                <form asp-action="AddCategory" method="post" class="d-inline-flex gap-2 ms-auto">
+                    <input type="text" name="name" class="form-control form-control-sm" placeholder="اسم فئة جديدة" required style="max-width:180px">
+                    <button class="btn btn-outline-primary btn-sm">إضافة فئة</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- جدول المنتجات -->
+    <div class="card shadow-sm border-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>الصورة</th>
+                        <th>المنتج</th>
+                        <th>الفئة</th>
+                        <th>السعر</th>
+                        <th>التقييم</th>
+                        <th>الحالة</th>
+                        <th class="text-center">إجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrEmpty(p.ImageUrl))
+                                {
+                                    <img src="@p.ImageUrl" alt="@p.Name" class="admin-thumb" />
+                                }
+                                else
+                                {
+                                    <span class="admin-thumb-emoji">@p.ImageEmoji</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="fw-semibold">@p.Name</div>
+                                <small class="text-muted">@(p.Description.Length > 60 ? p.Description[..60] + "…" : p.Description)</small>
+                            </td>
+                            <td><span class="badge bg-secondary-subtle text-secondary-emphasis">@p.Category</span></td>
+                            <td>
+                                <span class="fw-bold">@p.Price.ToString("N0") ر.س</span>
+                                @if (p.OldPrice.HasValue)
+                                {
+                                    <br /><small class="text-muted text-decoration-line-through">@p.OldPrice.Value.ToString("N0")</small>
+                                    <small class="text-danger fw-semibold">(خصم @p.DiscountPercent%)</small>
+                                }
+                            </td>
+                            <td>⭐ @p.Rating <small class="text-muted">(@p.ReviewCount)</small></td>
+                            <td>
+                                @if (p.InStock)
+                                {
+                                    <span class="badge bg-success">متوفر</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">نفد</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <div class="d-inline-flex gap-1">
+                                    <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-warning btn-sm" title="تعديل">✏️ تعديل</a>
+                                    <form asp-action="Delete" asp-route-id="@p.Id" method="post" class="d-inline"
+                                          onsubmit="return confirm('هل أنت متأكد من حذف «@p.Name»؟');">
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-outline-danger btn-sm" title="حذف">🗑 حذف</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
